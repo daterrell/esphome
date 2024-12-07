@@ -1,0 +1,173 @@
+substitutions:
+  name: wroom-32d
+  friendly_name: WRoom 32D
+  area: ""
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  area: ${area}
+  name_add_mac_suffix: true
+  project:
+    name: Wroom.32D
+    version: 1.0.0
+  on_boot:
+  - priority: 900.0
+    then:
+      - lambda: |-
+          id(cpu_speed) = ESP.getCpuFreqMHz();
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  - platform: esphome
+
+wifi:
+  ap: {}
+
+web_server:
+
+captive_portal:
+
+dashboard_import:
+  package_import_url: github://dterrell/esphome/esp32-wroom-32d.yaml
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+
+sensor:
+  - platform: uptime
+    name: Uptime
+    id: sys_uptime
+    update_interval: 60s
+    #Device CPU Speed
+  - platform: template
+    name: "ESP Cpu Speed"
+    accuracy_decimals: 0
+    unit_of_measurement: Mhz
+    lambda: |-
+      return (id(cpu_speed));
+    entity_category: "diagnostic"
+    #Device Memory
+  - platform: template
+    id: esp_memory
+    icon: mdi:memory
+    name: ESP Free Memory
+    lambda: return heap_caps_get_free_size(MALLOC_CAP_INTERNAL) / 1024;
+    unit_of_measurement: "kB"
+    state_class: measurement
+    entity_category: "diagnostic"
+    #Device Temperature
+  - platform: template
+    id: sys_esp_temperature
+    name: ESP Temperature
+    lambda: return temperatureRead();
+    unit_of_measurement: °C
+    device_class: TEMPERATURE
+    update_interval: 60s
+    #Device RSSI
+  - platform: wifi_signal
+    name: RSSI
+    id: wifi_signal_db
+    update_interval: 60s
+    entity_category: "diagnostic"
+
+switch:
+  - platform: gpio
+    pin: GPIO1
+    id: relay1
+    name: Relay 1
+  - platform: gpio
+    pin: GPIO2
+    id: relay2
+    name: Relay 2
+  - platform: gpio
+    pin: GPIO3
+    id: relay3
+    name: Relay 3
+  - platform: gpio
+    pin: GPIO4
+    id: relay4
+    name: Relay 4
+  - platform: gpio
+    pin: GPIO4
+    id: relay4
+    name: Relay 4
+  - platform: gpio
+    pin: GPIO5
+    id: relay5
+    name: Relay 5
+  - platform: gpio
+    pin: GPIO6
+    id: relay6
+    name: Relay 6
+  - platform: gpio
+    pin: GPIO7
+    id: relay7
+    name: Relay 7
+  - platform: gpio
+    pin: GPIO8
+    id: relay8
+    name: Relay 8
+  - platform: gpio
+    pin: GPIO9
+    id: relay9
+    name: Relay 9
+  - platform: gpio
+    pin: GPIO10
+    id: relay10
+    name: Relay 10
+  - platform: gpio
+    pin: GPIO11
+    id: relay11
+    name: Relay 11
+  - platform: gpio
+    pin: GPIO11
+    id: relay11
+    name: Relay 12
+  - platform: gpio
+    pin: GPIO12
+    id: relay12
+    name: Relay 12
+  - platform: gpio
+    pin: GPIO13
+    id: relay13
+    name: Relay 13
+  - platform: gpio
+    pin: GPIO14
+    id: relay14
+    name: Relay 14
+  - platform: gpio
+    pin: GPIO15
+    id: relay15
+    name: Relay 15
+  - platform: gpio
+    pin: GPIO16
+    id: relay16
+    name: Relay 16
+  - platform: gpio
+    pin: GPIO17
+    id: relay17
+    name: Relay 17
+  - platform: gpio
+    pin: GPIO18
+    id: relay18
+    name: Relay 18
+  - platform: gpio
+    pin: GPIO19
+    id: relay19
+    name: Relay 19
+  - platform: gpio
+    pin: GPIO20
+    id: relay20
+    name: Relay 20
